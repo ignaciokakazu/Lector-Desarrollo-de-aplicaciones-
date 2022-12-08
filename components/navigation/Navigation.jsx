@@ -6,8 +6,13 @@ import Login from '../login/Login';
 import Lector from '../lector/Lector';
 import PaginaLibro from '../principal/PaginaLibro';
 import VerMas from '../principal/VerMas';
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import PaginaLeidos from '../principal/PaginaLeidos';
+// import PaginaFavoritos from '../principal/PaginaFavoritos';
+// import PaginaRecientes from '../principal/PaginaRecientes';
 
 const Stack = createNativeStackNavigator();
+// const Tab = createBottomTabNavigator();
 
 export const Navigation = () => {
   return (
@@ -19,6 +24,11 @@ export const Navigation = () => {
         <Stack.Screen name="Lector" component={Lector} />    
         <Stack.Screen name="VerMas" component={VerMas} />  
       </Stack.Navigator>
+      {/* <Tab.Navigator>
+      <Tab.Screen name="Últimos leídos" component={PaginaLeidos} />
+      <Tab.Screen name="Favoritos" component={PaginaFavoritos} />
+      <Tab.Screen name="Más recientes" component={PaginaRecientes} />
+    </Tab.Navigator> */}
     </NavigationContainer>
   );
 }

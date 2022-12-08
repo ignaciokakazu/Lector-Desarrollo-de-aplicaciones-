@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import {View, Text, Pressable} from 'react-native';
 import { styles } from "../Styles";
+import { BottomTab } from "../navigation/BottomTab";
 
 const PaginaLibro = ({navigation, route}) => {
     // const navigation = useNavigation();
@@ -19,6 +20,8 @@ const PaginaLibro = ({navigation, route}) => {
             <Pressable>
                 <Text>Favorito (agregar)</Text>
             </Pressable>
+            
+            {/* <BottomTab/> */}
         </View>
     )
 }
