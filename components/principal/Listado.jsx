@@ -9,7 +9,7 @@ import { FlatList } from "react-native";
 const Listado = ({title, libros, navigation}) => {
     
     const navigateTo = () => {
-        navigation.navigate('VerMas', {listado: title})
+        navigation.navigate('Libro', {listado: title})
     }
 
     return (

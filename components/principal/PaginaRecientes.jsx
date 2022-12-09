@@ -15,7 +15,7 @@ const PaginaRecientes = ({navigation}) => {
 
     return (
     <View style={styles.container}>
-        <Listado title='Más recientes' libros={Libros} navigation={navigation}/>
+        <Listado title='Más recientes' route={Libros} navigation={navigation}/>
 
     </View>)
 }

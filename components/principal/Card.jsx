@@ -10,7 +10,7 @@ const Card = ({item}) => {
 
     const navigateTo = () => {
         // console.log(nav)
-        console.log(navigation)
+        console.log(nav)
         nav.navigate('Libro', {id: item.id, titulo: item.titulo, autor: item.autor})
     }
 

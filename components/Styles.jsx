@@ -6,6 +6,18 @@ export const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: Colors.background,
+        // width: 400,
+        // height: "100%",
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 40,
+        marginLeft: 40,
+        fontFamily: 'Poppins-Thin'
+    },
+    bottomTab: {
+        flex:1,
+        backgroundColor: Colors.background,
+        width: 400,
         // width: "100vh",
         // height: "100%",
         justifyContent: 'center',
