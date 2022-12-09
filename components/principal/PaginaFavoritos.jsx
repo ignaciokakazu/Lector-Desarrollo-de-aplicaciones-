@@ -1,6 +1,7 @@
 import { View } from "react-native"
 import { BottomTab } from "../navigation/BottomTab"
 import Listado from "./Listado"
+import { styles } from "../Styles"
 
 const PaginaFavoritos = ({navigation}) => {
     const Libros = [{
@@ -13,7 +14,8 @@ const PaginaFavoritos = ({navigation}) => {
         autor: 'Algún autor'
     }]
 
-    return (<View>
+    return (
+    <View style={styles.container}>
         <Listado title='Favoritos' libros={Libros} navigation={navigation}/>
         {/* <BottomTab/> */}
     </View>)

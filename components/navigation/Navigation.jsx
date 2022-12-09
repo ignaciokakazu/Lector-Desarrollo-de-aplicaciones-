@@ -14,6 +14,9 @@ import VerMas from '../principal/VerMas';
 const Stack = createNativeStackNavigator();
 // const Tab = createBottomTabNavigator();
 
+//https://reactnavigation.org/docs/nesting-navigators/#navigating-to-a-screen-in-a-nested-navigator
+//nested navigation
+
 export const Navigation = () => {
   return (
     <NavigationContainer>

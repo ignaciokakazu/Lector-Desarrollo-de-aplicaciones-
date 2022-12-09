@@ -1,5 +1,5 @@
 import { View } from "react-native"
-
+import { styles } from "../Styles"
 import Listado from "./Listado"
 
 const PaginaRecientes = ({navigation}) => {
@@ -13,7 +13,8 @@ const PaginaRecientes = ({navigation}) => {
         autor: 'Algún autor'
     }]
 
-    return (<View>
+    return (
+    <View style={styles.container}>
         <Listado title='Más recientes' libros={Libros} navigation={navigation}/>
 
     </View>)

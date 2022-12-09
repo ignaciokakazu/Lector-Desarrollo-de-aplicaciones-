@@ -9,7 +9,7 @@ const Tab = createBottomTabNavigator();
 
 export const BottomTab = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer independent={true}>
     <Tab.Navigator>
       <Tab.Screen name="Últimos leídos" component={PaginaLeidos} />
       <Tab.Screen name="Favoritos" component={PaginaFavoritos} />
