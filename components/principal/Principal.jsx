@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import {View, Text, Pressable} from 'react-native';
+import {View, } from 'react-native';
 import { styles } from "../Styles";
 import Listado from "./Listado";
 import { BottomTab } from "../navigation/BottomTab";

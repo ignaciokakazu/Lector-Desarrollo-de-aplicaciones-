@@ -1,23 +1,26 @@
-import { View } from "react-native"
-import { BottomTab } from "../navigation/BottomTab"
+import {useState, useEffect} from 'react'
+import { View, Pressable, Text } from "react-native"
 import { styles } from "../Styles"
 import Listado from "./Listado"
+import { useSelector } from 'react-redux'
 
 const PaginaLeidos = ({navigation}) => {
-    const Libros = [{
-        id: 0,
-        titulo: 'Libro 0',
-        autor: 'Algún autor'
-    },{
-        id: 1,
-        titulo: 'Libro 1',
-        autor: 'Algún autor'
-    }]
+    const [libros, setLibros] = useState([])
+    
+    useEffect(()=>{
+        const leidos = useSelector((state)=>state.leidos.libros)
+        setLibros(leidos)
+    }, [])
 
     return (
     <View style={styles.container}>
-        <Listado title='Últimos leídos' libros={Libros} navigation={navigation}/>
+        <Listado title='Últimos leídos' libros={libros} navigation={navigation}/>
         {/* <BottomTab/> */}
+        <Pressable
+            onPress={()=>{}}
+            style={styles.btn}>
+                <Text style={styles.btnText}>Ver más</Text>
+            </Pressable>
     </View>)
 }
 

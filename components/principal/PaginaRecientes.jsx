@@ -1,22 +1,28 @@
-import { View } from "react-native"
+import React from 'react'
+import { useEffect, useState } from "react"
+import { View, Pressable, Text } from "react-native"
+import { useSelector, useDispatch } from "react-redux"
 import { styles } from "../Styles"
 import Listado from "./Listado"
 
 const PaginaRecientes = ({navigation}) => {
-    const Libros = [{
-        id: 0,
-        titulo: 'Libro 0',
-        autor: 'Algún autor'
-    },{
-        id: 1,
-        titulo: 'Libro 1',
-        autor: 'Algún autor'
-    }]
+    // const [libros, setLibros] = useState([])
+    const libros = useSelector((state)=> state.recientes.libros)
+
+    useEffect(()=>{
+        // setLibros(recientes)
+        console.log(libros)
+        // console.log(recientes)
+    }, [])
 
     return (
     <View style={styles.container}>
-        <Listado title='Más recientes' route={Libros} navigation={navigation}/>
-
+        <Listado title='Más recientes' libros={libros} navigation={navigation}/>
+        <Pressable
+            onPress={()=>{}}
+            style={styles.btn}>
+                <Text style={styles.btnText}>Ver más</Text>
+            </Pressable>
     </View>)
 }
 

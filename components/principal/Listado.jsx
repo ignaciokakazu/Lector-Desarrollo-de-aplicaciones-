@@ -20,11 +20,6 @@ const Listado = ({title, libros, navigation}) => {
         renderItem={(props)=> <Card {...props} />}
         keyExtractor={item => item.id}
       />
-        <Pressable
-            onPress={navigateTo}
-            style={styles.btn}>
-                <Text style={styles.btnText}>Ver más</Text>
-            </Pressable>
         </View>
     )
 }
