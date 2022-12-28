@@ -14,6 +14,8 @@ const initialState = {
 }
 
 const favoritosReducer = (state = initialState, action) => {
+    //cómo agregar 
+    //https://stackoverflow.com/questions/40911194/how-do-i-add-an-element-to-array-in-reducer-of-react-native-redux
     switch (action.type) {
         case FAVORITOS_AGREGAR:
             const librosAgregado = state.libros

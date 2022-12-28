@@ -6,10 +6,12 @@ import { useSelector } from 'react-redux'
 
 const PaginaLeidos = ({navigation}) => {
     const [libros, setLibros] = useState([])
-    
+    const leidos = useSelector((state)=>state.leidos.libros)
+    const user = useSelector((state)=>state.user)
+
     useEffect(()=>{
-        const leidos = useSelector((state)=>state.leidos.libros)
         setLibros(leidos)
+        console.log('user según selector de paginaLeidos', user)
     }, [])
 
     return (

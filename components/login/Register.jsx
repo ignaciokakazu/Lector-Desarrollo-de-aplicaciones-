@@ -1,54 +1,54 @@
 import React, { useState } from "react";
 import {View, Text, TextInput, Pressable, Image} from 'react-native';
 import { styles } from "../Styles";
-import { useSelector, useDispatch } from "react-redux";
+import { validacionRegister } from "./loginFunctions";
+import { useDispatch } from "react-redux";
 import { set_usuario } from "../../store/actions/user.actions";
-import { validacionLogin } from "./loginFunctions";
 
-const Login = ({navigation }) => {
-    const [user, setUser] = useState('');
+const Register = ({navigation }) => {
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordConfirm, setPasswordConfirm] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
-    const userRedux = useSelector((state)=> state.user)
     const dispatch = useDispatch()
 
-    const handleUser = (email) => {
-        setUser(email)
+    const handleEmail = (email) => {
+        //validar que sea un email válido
+        setEmail(email)
     }
 
     const handlePassword = (pass) => {
         setPassword(pass)
     }
-
-    const enviar = () => {
-        const validacionMsg = validacionLogin(user, password);
-        
-        if (!validacionMsg.estado){
-            setErrorMsg(validacionMsg.msg)
-            return 
-        } else {
-            navigation.navigate('Principal')
-            dispatch(set_usuario(user))
-            console.log('user_redux', userRedux.user)
-        }
+    
+    const handlePasswordConfirm = (pass) => {
+        setPasswordConfirm(pass)
     }
 
-    const register = () => {
-        navigation.navigate('Register')
+    const registrar = () => {
+        const message = validacionRegister(email, password, passwordConfirm)
+
+        if (!message.estado) {
+            setErrorMsg(message.msg)
+        } else {
+            alert('Grabar en la bd')
+            dispatch(set_usuario(email))
+            navigation.navigate('Principal')
+        }
     }
 
     return(
         <View style={styles.container}>
             <Text style={styles.h1}>Logo</Text>
-            <Text style={styles.h1}>Login</Text>
+            <Text style={styles.h1}>Register</Text>
             {/* <Image
                 source={require('../../assets/logo.png')}
             ></Image> */}
             <TextInput
                 //style={styles.input}
-                onChangeText={(email)=>handleUser(email)}
+                onChangeText={(email)=>handleEmail(email)}
                 placeholder="E-mail del usuario"
-                value={user}
+                value={email}
                 style={styles.input}
                 />
             
@@ -59,24 +59,25 @@ const Login = ({navigation }) => {
                 value={password}
                 style={styles.input}
                 />
+
+            <TextInput
+                onChangeText={(pass)=> handlePasswordConfirm(pass)}
+                onBlur={()=>{}}
+                placeholder="Password Confirmation"
+                value={passwordConfirm}
+                style={styles.input}
+                />
             
             <Text style={styles.errorMsg}>{errorMsg}</Text>
 
             <Pressable
-            onPress={enviar}
+            onPress={registrar}
             style={styles.btn}>
                 <Text style={styles.btnText}>Enviar</Text>
-            </Pressable>
-
-
-            <Pressable
-            onPress={register}
-            style={styles.btn}>
-                <Text style={styles.btnText}>Soy nuevo</Text>
             </Pressable>
             
         </View>
     )
 }
 
-export default Login
+export default Register
