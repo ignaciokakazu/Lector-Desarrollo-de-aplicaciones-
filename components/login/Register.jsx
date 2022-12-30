@@ -4,6 +4,7 @@ import { styles } from "../Styles";
 import { validacionRegister } from "./loginFunctions";
 import { useDispatch } from "react-redux";
 import { set_usuario } from "../../store/actions/user.actions";
+import { LocationSelector } from "./LocationSelector";
 
 const Register = ({navigation }) => {
     const [email, setEmail] = useState('');
@@ -70,6 +71,7 @@ const Register = ({navigation }) => {
             
             <Text style={styles.errorMsg}>{errorMsg}</Text>
 
+            <LocationSelector/>
             <Pressable
             onPress={registrar}
             style={styles.btn}>

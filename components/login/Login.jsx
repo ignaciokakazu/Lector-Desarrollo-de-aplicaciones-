@@ -4,6 +4,7 @@ import { styles } from "../Styles";
 import { useSelector, useDispatch } from "react-redux";
 import { set_usuario } from "../../store/actions/user.actions";
 import { validacionLogin } from "./loginFunctions";
+import { LocationSelector } from "./LocationSelector";
 
 const Login = ({navigation }) => {
     const [user, setUser] = useState('');
