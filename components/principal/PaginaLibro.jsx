@@ -5,6 +5,7 @@ import { styles } from "../Styles";
 import { BottomTab } from "../navigation/BottomTab";
 import { useDispatch, useSelector } from "react-redux";
 import { favoritos_agregar, favoritos_eliminar } from "../../store/actions/favoritos.actions";
+import { insertFavorito } from "../../db";
 
 const PaginaLibro = ({navigation, route}) => {
     const {id, titulo, autor} = route.params;
@@ -30,10 +31,12 @@ const PaginaLibro = ({navigation, route}) => {
     }
 
     // tengo que mejorar esta función. Unificarla según Accion
-    const agregar = () => {
+    const agregar =  async () => {
         console.log(favoritos)
         const index = favoritos.findIndex((libro)=>libro.id == id)
         if (index==-1) {
+            const result = await insertFavorito(id, titulo, autor)
+            console.log('r', result)
             dispatch(favoritos_agregar(id, titulo, autor))
             setAccion('eliminar')
         }         
