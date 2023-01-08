@@ -28,9 +28,9 @@ const Login = ({navigation }) => {
             setErrorMsg(validacionMsg.msg)
             return 
         } else {
-            navigation.navigate('Principal')
             dispatch(set_usuario(user))
             console.log('user_redux', userRedux.user)
+            navigation.navigate('Principal')            
         }
     }
 
@@ -46,7 +46,6 @@ const Login = ({navigation }) => {
                 source={require('../../assets/logo.png')}
             ></Image> */}
             <TextInput
-                //style={styles.input}
                 onChangeText={(email)=>handleUser(email)}
                 placeholder="E-mail del usuario"
                 value={user}

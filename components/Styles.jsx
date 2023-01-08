@@ -6,13 +6,11 @@ export const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: Colors.background,
-        // width: 400,
+        width: "100%",
         // height: "100%",
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: 40,
-        marginLeft: 40,
-        fontFamily: 'Poppins-Thin'
+        //fontFamily: 'Poppins-Thin'
     },
     bottomTab: {
         flex:1,
@@ -24,13 +22,18 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         marginRight: 40,
         marginLeft: 40,
-        fontFamily: 'Poppins-Thin'
+        //fontFamily: 'Poppins-Thin'
     },
+    menuBtn: {
+        width: 400,
+        height: 400,
+        backgroundColor: 'yellow'
+    },  
     input: {
         backgroundColor: Colors.secondary,
         color: Colors.text,
         heigth: 50,
-        width: 400,
+        width: 300,
         padding: 10,
         textAlign: 'center',
         marginTop: 20,
@@ -70,12 +73,12 @@ export const styles = StyleSheet.create({
     cardText: {
         color: Colors.black,
         fontSize: 20,
-        fontFamily: 'Poppins-Thin'
+        //fontFamily: 'Poppins-Thin'
     },
     cardTextAutor: {
         color: Colors.black,
         fontSize: 12,
-        fontFamily: 'Poppins-Thin'
+        //fontFamily: 'Poppins-Thin'
     },
     listado: {
         textAlign: 'center'
@@ -83,14 +86,14 @@ export const styles = StyleSheet.create({
     h1: {
         color: Colors.text,
         fontSize: 30,
-        fontFamily: 'Poppins-Bold',
+        //fontFamily: 'Poppins-Bold',
         marginTop: 5,
         marginBottom: 5
     },
     h2: {
         color: Colors.text,
         fontSize: 15,
-        fontFamily: 'Poppins-Bold',
+        //fontFamily: 'Poppins-Bold',
         marginTop: 3,
         marginBottom: 3
     },
@@ -101,7 +104,7 @@ export const styles = StyleSheet.create({
     errorMsg: {
         color: Colors.text,
         fontSize: 15,
-        fontFamily: 'Poppins-Bold',
+        //fontFamily: 'Poppins-Bold',
         marginTop: 10,
     }
 })

@@ -1,15 +1,17 @@
 import * as SQLite from 'expo-sqlite'
 
-const dbFavoritos = SQLite.openDatabase('favoritos.db')
+const dbFavoritos = SQLite.openDatabase('lector.db')
 
 export const init = () => {
     const promise = new Promise((resolve, reject)=> {
         dbFavoritos.transaction((tx)=>{
+            tx.executeSql('DROP TABLE IF EXISTS favoritos', [], ()=> {resolve()}, (_,err)=> {reject(err)})
+        })
+        dbFavoritos.transaction((tx)=>{
             tx.executeSql(`CREATE TABLE IF NOT EXISTS favoritos
                 (   idLibro INTEGER PRIMARY KEY NOT NULL,
                     titulo TEXT NOT NULL,
-                    autor TEXT NOT NULL,
-                    fechaCreacion DATE NOT NULL
+                    autor TEXT NOT NULL
                 )`, [],
             ()=> {resolve()},
             (_, err)=> {reject(err)}
@@ -20,17 +22,14 @@ export const init = () => {
 }
 
 export const insertFavorito = (idLibro, titulo, autor) => {
-    const today = new Date();
-
     const promise = new Promise((resolve, reject)=> {
         dbFavoritos.transaction((tx)=> {
-            tx.executeSql(`INSERT INTO favoritos (idLibro, titulo, autor, fechaCreacion) VALUES (?, ?, ?, ?);`,
-            [idLibro, titulo, autor, today], [],
+            tx.executeSql(`INSERT INTO favoritos (idLibro, titulo, autor) VALUES (?, ?, ?);`,
+            [idLibro, titulo, autor], [],
             (_,result)=> resolve(result),
             (_, err)=> reject(err))
         })
     })
-    
     return promise
 }
 

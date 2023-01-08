@@ -2,10 +2,9 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import {View, Text, Pressable} from 'react-native';
 import { styles } from "../Styles";
-import { BottomTab } from "../navigation/BottomTab";
 import { useDispatch, useSelector } from "react-redux";
 import { favoritos_agregar, favoritos_eliminar } from "../../store/actions/favoritos.actions";
-import { insertFavorito } from "../../db";
+import { insertFavorito, selectFavorito } from "../../db";
 
 const PaginaLibro = ({navigation, route}) => {
     const {id, titulo, autor} = route.params;
@@ -18,8 +17,8 @@ const PaginaLibro = ({navigation, route}) => {
         const index = favoritos.findIndex((libro)=>libro.id == id) 
         index == -1? setAccion('agregar') : setAccion('eliminar')
     }, [])
-
-    const atras = () => {
+    
+    const atras = async () => {
         navigation.goBack();
     }
 
@@ -31,21 +30,24 @@ const PaginaLibro = ({navigation, route}) => {
     }
 
     // tengo que mejorar esta función. Unificarla según Accion
-    const agregar =  async () => {
-        console.log(favoritos)
+    const setBtn = () => {
+        if (accion == 'agregar') {
+            
+        }
+    }
+
+    const agregar =  () => {
         const index = favoritos.findIndex((libro)=>libro.id == id)
         if (index==-1) {
-            const result = await insertFavorito(id, titulo, autor)
-            console.log('r', result)
+            // const today = new Date()
+            // insertFavorito(id, titulo, autor, today)
+            //     .then((result)=> console.log('r', result))
             dispatch(favoritos_agregar(id, titulo, autor))
             setAccion('eliminar')
         }         
-        // console.log(accion)
-        console.log(favoritos)
     }
 
     const eliminar = () => {
-        console.log(favoritos)
         const index = favoritos.findIndex((libro)=>libro.id == id)
         if (index!=-1) {
             dispatch(favoritos_eliminar(id))

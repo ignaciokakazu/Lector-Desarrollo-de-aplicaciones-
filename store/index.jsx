@@ -1,5 +1,5 @@
-import {createStore, combineReducers } from 'redux'
-
+import {createStore, combineReducers, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 import userReducer from './reducers/user.reducer'
 import recientesReducer from './reducers/recientes.reducer'
 import favoritosReducer from './reducers/favoritos.reducer'
@@ -12,4 +12,4 @@ const RootReducer = combineReducers({
     leidos: leidosReducer
 })
 
-export default createStore(RootReducer)
+export default createStore(RootReducer, applyMiddleware(thunkMiddleware))

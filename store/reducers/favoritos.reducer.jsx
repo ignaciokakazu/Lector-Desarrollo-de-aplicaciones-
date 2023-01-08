@@ -1,4 +1,4 @@
-import { FAVORITOS_AGREGAR, FAVORITOS_ELIMINAR } from "../actions/favoritos.actions"
+import { FAVORITOS_AGREGAR, FAVORITOS_ELIMINAR, FAVORITOS_LOAD } from "../actions/favoritos.actions"
 
 // const initialState = {
 //     libros: [{
@@ -24,6 +24,7 @@ const favoritosReducer = (state = initialState, action) => {
         case FAVORITOS_AGREGAR:
             const librosAgregado = state.libros
             librosAgregado.push({id: action.payload.id, titulo: action.payload.titulo, autor: action.payload.autor})
+            console.log('librosAgregados, reducer', librosAgregado)
             return  {libros: librosAgregado}
             // return {
             //     ...state,
@@ -38,6 +39,8 @@ const favoritosReducer = (state = initialState, action) => {
             const filtered = state.libros.filter((libro)=>libro.id != action.id)
             return  {libros: filtered}
 
+        case FAVORITOS_LOAD: 
+            return {libros: action.payload.libros}
         default: 
             return state
     }
