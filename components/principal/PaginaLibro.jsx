@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import {View, Text, Pressable} from 'react-native';
-import { styles } from "../Styles";
+import { ConditionalStyle} from "../styles/ConditionalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { favoritos_agregar, favoritos_eliminar } from "../../store/actions/favoritos.actions";
 import { insertFavorito, selectFavorito } from "../../db";
@@ -12,11 +12,14 @@ const PaginaLibro = ({navigation, route}) => {
     const favoritos = useSelector((state)=> state.favoritos.libros)
     const recientes = useSelector((state)=> state.recientes.libros)
     const dispatch = useDispatch()
+    const [styles, setStyles] = useState('')
+    const theme = useSelector((state)=>state.user.theme)
 
     useEffect(()=>{
         const index = favoritos.findIndex((libro)=>libro.id == id) 
         index == -1? setAccion('agregar') : setAccion('eliminar')
-    }, [])
+        setStyles(ConditionalStyle(theme))
+    }, [theme])
     
     const atras = async () => {
         navigation.goBack();

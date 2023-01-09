@@ -10,9 +10,8 @@ const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USUARIO:
             const seted = {
+                ...state,
                 user: action.user,
-                theme: state.theme,
-                segmento: state.segmento
             }
             return  seted                
             
@@ -26,10 +25,10 @@ const userReducer = (state = initialState, action) => {
 
         case SET_THEME: 
             const set_theme = {
-                user: state.user,
+                ...state,
                 theme: action.theme,
-                segmento: state.segmento
             }
+            console.log(set_theme)
             return set_theme
         
         default: 

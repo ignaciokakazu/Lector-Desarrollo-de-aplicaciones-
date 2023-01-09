@@ -1,0 +1,16 @@
+* Loader
+* ver librería de lectores (redium)
+* grabar libros para ver offline
+* estilos
+* navegación del lector
+* registración
+* Redux:
+	quitar favorito
+	leidos. hacer abm
+* login: 
+	conectar con firebase
+	joi
+* registrar:
+	conectar con firebase
+	joi
+* ajustes

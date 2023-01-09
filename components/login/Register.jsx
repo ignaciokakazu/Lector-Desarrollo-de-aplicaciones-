@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {View, Text, TextInput, Pressable, Image} from 'react-native';
-import { styles } from "../Styles";
+import {styles} from "../styles/ConditionalStyle";
 import { validacionRegister } from "./loginFunctions";
 import { useDispatch } from "react-redux";
 import { set_usuario } from "../../store/actions/user.actions";

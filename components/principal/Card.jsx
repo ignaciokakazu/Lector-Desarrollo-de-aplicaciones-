@@ -1,6 +1,6 @@
 import React from "react";
 import {View, Text, Pressable, TouchableOpacity} from 'react-native';
-import { styles } from "../Styles";
+import {styles} from "../styles/ConditionalStyle";
 import { useNavigation } from '@react-navigation/native';
 
 

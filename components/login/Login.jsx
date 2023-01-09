@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {View, Text, TextInput, Pressable, Image} from 'react-native';
-import { styles } from "../Styles";
+import { styles } from "../styles/ConditionalStyle";
 import { useSelector, useDispatch } from "react-redux";
 import { set_usuario } from "../../store/actions/user.actions";
 import { validacionLogin } from "./loginFunctions";
@@ -22,8 +22,11 @@ const Login = ({navigation }) => {
     }
 
     const enviar = () => {
-        const validacionMsg = validacionLogin(user, password);
-        
+        //const validacionMsg = validacionLogin(user, password);
+        const validacionMsg = {
+            estado: true
+        }
+
         if (!validacionMsg.estado){
             setErrorMsg(validacionMsg.msg)
             return 
@@ -39,7 +42,7 @@ const Login = ({navigation }) => {
     }
 
     return(
-        <View style={styles.container}>
+        <View style={styles.containerLogin}>
             <Text style={styles.h1}>Logo</Text>
             <Text style={styles.h1}>Login</Text>
             {/* <Image
