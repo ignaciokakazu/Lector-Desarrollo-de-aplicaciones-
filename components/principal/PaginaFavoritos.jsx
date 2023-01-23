@@ -1,39 +1,28 @@
-import { View, Pressable, TextInput, Text } from "react-native"
-import {useState, useEffect} from 'react'
-import Listado from "./Listado"
+import React from 'react'
+import { useEffect, useState } from "react"
+import { View, Pressable, Text } from "react-native"
+import { useSelector, useDispatch } from "react-redux"
 import {ConditionalStyle} from "../styles/ConditionalStyle";
-import { useSelector } from "react-redux"
+import Listado from "./Listado"
+import { set_temporales } from '../../store/actions/temporales.actions';
 
 const PaginaFavoritos = ({navigation}) => {
-    const [libros, setLibros] = useState([])
-    const [searchText, setSearchText] = useState('')
-    const favoritos = useSelector((state)=> state.favoritos.libros)
     const [styles, setStyles] = useState('')
-    const theme = useSelector((state)=>state.user.theme)
+    const [libros, setLibros] = useState([])
 
+    //redux
+    const favoritos = useSelector((state)=> state.favoritos.libros)
+    const theme = useSelector((state)=>state.user.theme)
+    const dispatch = useDispatch()
+    
     useEffect(()=>{
         setLibros(favoritos)
-        console.log(theme)
         setStyles(ConditionalStyle(theme))
     }, [theme])
 
-    const verMas = (e) => {
-        setSearchText(e)
-    }
-
     return (
     <View style={styles.container}>
-        <TextInput 
-            onChange={(e)=>verMas(e)}
-            placeholder='Buscar'
-            value={searchText}/>
-            
         <Listado title='Favoritos' libros={libros} navigation={navigation}/>
-        <Pressable
-            onPress={()=>{}}
-            style={styles.btn}>
-                <Text style={styles.btnText}>Ver más</Text>
-            </Pressable>
     </View>)
 }
 

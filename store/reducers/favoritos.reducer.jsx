@@ -23,20 +23,12 @@ const favoritosReducer = (state = initialState, action) => {
     switch (action.type) {
         case FAVORITOS_AGREGAR:
             const librosAgregado = state.libros
-            librosAgregado.push({id: action.payload.id, titulo: action.payload.titulo, autor: action.payload.autor})
-            console.log('librosAgregados, reducer', librosAgregado)
+            librosAgregado.push(action.payload)
+            //console.log('librosAgregados, reducer', librosAgregado)
             return  {libros: librosAgregado}
-            // return {
-            //     ...state,
-            //     libros: state.libros.push({
-            //         id: action.payload.id,
-            //         titulo: action.payload.titulo,
-            //         autor: action.payload.autor,
-            //     })
-            // }
             
         case FAVORITOS_ELIMINAR:
-            const filtered = state.libros.filter((libro)=>libro.id != action.id)
+            const filtered = state.libros.filter((libro)=>libro.id != action.payload.id)
             return  {libros: filtered}
 
         case FAVORITOS_LOAD: 

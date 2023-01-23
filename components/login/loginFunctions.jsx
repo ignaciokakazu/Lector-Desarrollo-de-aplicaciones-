@@ -1,4 +1,16 @@
 //acá tiene que ir a la bd
+import Joi from 'react-native-joi'
+
+const schemaLogin = Joi.object().keys({
+    user: Joi.string().email().required(),
+    password: Joi.string().min(4).required(),
+})
+
+const schemaRegister = Joi.object().keys({
+    user: Joi.string().email().required(),
+    password: Joi.string().min(4).required(),
+    passwordConfirm: Joi.string().min(4).required()
+})
 
 const validacionEmail = (email) => {
     if (!email) {
@@ -25,38 +37,39 @@ const validacionPassword = (password) => {
 
 //register
 export const validacionRegister = (email, password, passwordConfirm) => {
-    const emailMsg = validacionEmail(email);
-    if (!emailMsg.estado) {
-        return emailMsg
-    }
 
-    const passwordMsg = validacionPassword(password)
-    if (!passwordMsg.estado) {
-        return passwordMsg
-    }
+    const result = Joi.validate({
+        user: email,
+        password: password,
+        passwordConfirm: passwordConfirm
+    }, schemaRegister)
+    const {error} = result
 
-   if (password != passwordConfirm) {
-        return {msg: 'El password no es igual a la confirmación', estado: false}
-   }
+    console.log('result', error)
 
-    return {msg: 'Ok', estado: true}
+    if (error) {
+        return {msg: error.details[0].message, estado: false}    
+    } 
+
+    if (password != passwordConfirm) {
+        return {msg: 'Error en confirmación de password', estado: false}
+    } 
+    
+    return {msg: 'Ok', estado: true}  
 }
 
 //login
 export const validacionLogin = (email, password) => {
-    const emailMsg = validacionEmail(email);
-    if (!emailMsg.estado) {
-        return emailMsg
-    }
-
-    const passwordMsg = validacionPassword(password)
-    if (!passwordMsg.estado) {
-        return passwordMsg
-    }
-
-    if (email != 'admin' || password != 'admin') {
-        return {msg: 'El email debe ser admin y el password admin'}
-    }
+    
+    const result = Joi.validate({
+        user: email,
+        password: password
+    }, schemaLogin)
+    const {error} = result
+    
+    if (error) {
+        return {msg: error.details[0].message, estado: false}    
+    } 
 
     return {msg: 'Ok', estado: true}
 }

@@ -10,6 +10,7 @@ import Ajustes from '../ajustes/Ajustes';
 import PaginaFavoritos from '../principal/PaginaFavoritos';
 import PaginaLeidos from '../principal/PaginaLeidos';
 import PaginaRecientes from '../principal/PaginaRecientes';
+import PaginaBuscar from '../principal/PaginaBuscar';
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import PaginaLeidos from '../principal/PaginaLeidos';
 // import PaginaFavoritos from '../principal/PaginaFavoritos';
@@ -26,6 +27,7 @@ export const StackNavigation = () => {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Principal" component={Principal} />
+        <Stack.Screen name="Buscar libros" component={PaginaBuscar} />
         <Stack.Screen name="Libro" component={PaginaLibro} />
         <Stack.Screen name="Lector" component={Lector} />    
         <Stack.Screen name='Register' component={Register} />

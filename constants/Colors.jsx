@@ -2,7 +2,7 @@ export const Oscuro = {
         primary: '#8758FF',
         secondary: '#5CB8E4',
         text: '#FFFFFF',
-        background: '#181818',
+        background: '#000000',
         card: '#FFFFFF',
         black: '#000000',
         gray: '#9E9E9E',

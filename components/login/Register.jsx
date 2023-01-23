@@ -5,6 +5,7 @@ import { validacionRegister } from "./loginFunctions";
 import { useDispatch } from "react-redux";
 import { set_usuario } from "../../store/actions/user.actions";
 import { LocationSelector } from "./LocationSelector";
+import {altaUsuario, getDataFromFirebase, getUsuarios} from '../../db/FirebaseQuerys';
 
 const Register = ({navigation }) => {
     const [email, setEmail] = useState('');
@@ -26,25 +27,37 @@ const Register = ({navigation }) => {
         setPasswordConfirm(pass)
     }
 
-    const registrar = () => {
+    const registrar = async () => {
         const message = validacionRegister(email, password, passwordConfirm)
-
+        console.log('registrar', message)
         if (!message.estado) {
             setErrorMsg(message.msg)
         } else {
-            alert('Grabar en la bd')
-            dispatch(set_usuario(email))
+            //está repetido?
+            const usuarios = await getDataFromFirebase('users')
+            const index = usuarios.findIndex(user => user.user == email)
+            if (index!=-1) {
+                setErrorMsg('Email ya registrado')
+                return
+            }
+            const result = await altaUsuario(email, password)
+            const usuarios2 = await getDataFromFirebase('users')
+            console.log(usuarios2)
+            const index2= usuarios2.findIndex(user => user.user == email)
+            console.log(index2)
+            const idUser = usuarios2[index2].id
+            const theme = usuarios2[index2].theme
+            const segmento = usuarios2[index2].segmento
+            dispatch(set_usuario(idUser, email, theme, segmento))            
             navigation.navigate('Principal')
         }
     }
 
     return(
-        <View style={styles.container}>
-            <Text style={styles.h1}>Logo</Text>
-            <Text style={styles.h1}>Register</Text>
-            {/* <Image
-                source={require('../../assets/logo.png')}
-            ></Image> */}
+        <View style={styles.containerLogin}>
+            <Image
+                source={require('../../assets/logo-oscuro.png')}
+            ></Image>
             <TextInput
                 //style={styles.input}
                 onChangeText={(email)=>handleEmail(email)}
@@ -56,6 +69,7 @@ const Register = ({navigation }) => {
             <TextInput
                 onChangeText={(pass)=> handlePassword(pass)}
                 onBlur={()=>{}}
+                secureTextEntry={true}
                 placeholder="Password"
                 value={password}
                 style={styles.input}
@@ -64,6 +78,7 @@ const Register = ({navigation }) => {
             <TextInput
                 onChangeText={(pass)=> handlePasswordConfirm(pass)}
                 onBlur={()=>{}}
+                secureTextEntry={true}
                 placeholder="Password Confirmation"
                 value={passwordConfirm}
                 style={styles.input}

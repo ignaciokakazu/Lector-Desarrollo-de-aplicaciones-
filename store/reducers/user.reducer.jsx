@@ -1,6 +1,7 @@
 import { SET_USUARIO, UNSET_USUARIO, SET_THEME } from "../actions/user.actions"
 
 const initialState = {
+    idUser: '',
     user: '',
     theme: 'Oscuro',
     segmento: 'Gratis' //premium gratuito
@@ -9,14 +10,11 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USUARIO:
-            const seted = {
-                ...state,
-                user: action.user,
-            }
-            return  seted                
+            return  action.payload                
             
         case UNSET_USUARIO:
             const unseted = {
+                idUser: '',
                 user: '',
                 theme: '',
                 segmento: ''
@@ -26,9 +24,8 @@ const userReducer = (state = initialState, action) => {
         case SET_THEME: 
             const set_theme = {
                 ...state,
-                theme: action.theme,
+                theme: action.payload.theme,
             }
-            console.log(set_theme)
             return set_theme
         
         default: 

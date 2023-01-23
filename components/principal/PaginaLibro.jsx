@@ -1,100 +1,107 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import {View, Text, Pressable} from 'react-native';
-import { ConditionalStyle} from "../styles/ConditionalStyle";
+import { View, Text, Pressable } from "react-native";
+import { ConditionalStyle } from "../styles/ConditionalStyle";
 import { useDispatch, useSelector } from "react-redux";
-import { favoritos_agregar, favoritos_eliminar } from "../../store/actions/favoritos.actions";
-import { insertFavorito, selectFavorito } from "../../db";
+import {
+  favoritos_agregar,
+  favoritos_eliminar,
+  favoritos_load,
+} from "../../store/actions/favoritos.actions";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
-const PaginaLibro = ({navigation, route}) => {
-    const {id, titulo, autor} = route.params;
-    const [accion, setAccion] = useState('');
-    const favoritos = useSelector((state)=> state.favoritos.libros)
-    const recientes = useSelector((state)=> state.recientes.libros)
-    const dispatch = useDispatch()
-    const [styles, setStyles] = useState('')
-    const theme = useSelector((state)=>state.user.theme)
+const PaginaLibro = ({ navigation, route }) => {
+  const { id, titulo, autor, src, fecha, descripcion } = route.params;
+  const [accion, setAccion] = useState("");
+  const dispatch = useDispatch();
+  const [styles, setStyles] = useState("");
 
-    useEffect(()=>{
-        const index = favoritos.findIndex((libro)=>libro.id == id) 
-        index == -1? setAccion('agregar') : setAccion('eliminar')
-        setStyles(ConditionalStyle(theme))
-    }, [theme])
-    
-    const atras = async () => {
-        navigation.goBack();
+  //redux
+  const favoritos = useSelector((state) => state.favoritos.libros);
+  const temporales = useSelector((state) => state.temporales.libros);
+  const theme = useSelector((state) => state.user.theme);
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const index = favoritos.findIndex((libro) => libro.id == id);
+    index == -1 ? setAccion("agregar") : setAccion("eliminar");
+    setStyles(ConditionalStyle(theme));
+  }, [theme]);
+
+  const leer = () => {
+    //agrega a Leidos
+    // const index = recientes.findIndex((libro)=>libro.id == id)
+    // index != -1?
+    navigation.navigate("Lector", { id: id, src: src });
+  };
+
+  const agregar = () => {
+    const index = favoritos.findIndex((libro) => libro.idLibro == id);
+    if (index == -1) {
+      const libro = temporales.filter((libro) => libro.id == id);
+      dispatch(favoritos_agregar(user.idUser, {
+        idLibro: libro[0].id,
+        titulo: libro[0].titulo,
+        autor: libro[0].autor,
+        descripcion: libro[0].descripcion,
+        fecha: libro[0].fecha
+      }));
     }
+    dispatch(favoritos_load(user.idUser))
+    setAccion("eliminar");
+  };
 
-    const leer = () => {
-        //agrega a Recientes
-        const index = recientes.findIndex((libro)=>libro.id == id)
-        // index != -1? 
-        navigation.navigate("Lector", {id: id})
+  const eliminar = () => {
+    const index = favoritos.findIndex((libro) => libro.idLibro == id);
+    // console.log('favoritos', favoritos)
+    // console.log('index', index)
+    // console.log('favorito a eliminar', favoritos[index].id)
+    if (index != -1) {
+      dispatch(favoritos_eliminar(favoritos[index].id));
+      dispatch(favoritos_load(user.idUser))
     }
+    setAccion("agregar");
+    // console.log(accion)
+    console.log('una vez eliminados', favoritos);
+  };
 
-    // tengo que mejorar esta función. Unificarla según Accion
-    const setBtn = () => {
-        if (accion == 'agregar') {
-            
-        }
-    }
+  return (
+    <View style={styles.containerLogin}>
+      {/* <Text style={styles.h1}>{id}</Text> */}
+      <Text style={styles.h1}>{titulo}</Text>
+      <Text style={styles.h2}>{autor}</Text>
+      
+      <View style={styles.cuadro}>
+        <Text style={styles.descriptionText}>{descripcion}</Text>
+        <Text style={styles.descriptionText}>Año: {fecha}</Text>
+      </View>
 
-    const agregar =  () => {
-        const index = favoritos.findIndex((libro)=>libro.id == id)
-        if (index==-1) {
-            // const today = new Date()
-            // insertFavorito(id, titulo, autor, today)
-            //     .then((result)=> console.log('r', result))
-            dispatch(favoritos_agregar(id, titulo, autor))
-            setAccion('eliminar')
-        }         
-    }
+      <Pressable onPress={leer} style={styles.btn}>
+        <Text style={styles.btnText}>
+          <Ionicons name="md-eye" size={32} style={styles.btnText} />{" "}
+        </Text>
+      </Pressable>
 
-    const eliminar = () => {
-        const index = favoritos.findIndex((libro)=>libro.id == id)
-        if (index!=-1) {
-            dispatch(favoritos_eliminar(id))
-            setAccion('agregar')
-        }
-        // console.log(accion)
-        console.log(favoritos)
-    }
+      <Pressable
+        style={styles.btn}
+        onPress={accion == "agregar" ? agregar : eliminar}
+      >
+        <Text style={styles.btnText}>
+          {accion == "agregar" ? (
+            <Ionicons name="heart" size={32} style={styles.btnText} />
+          ) : (
+            <Ionicons
+              name="heart-dislike-outline"
+              size={32}
+              style={styles.btnText}
+            />
+          )}
+        </Text>
+      </Pressable>
 
-    return (
-        <View style={styles.container}>
-            <Pressable
-            onPress={atras}
-            style={styles.btn}
-            >
-                <Text style={styles.btnText}>Atrás</Text></Pressable>
+      {/* <BottomTab/> */}
+    </View>
+  );
+};
 
-            <Text style={styles.h1}>{id}</Text>
-            <Text style={styles.h2}>{titulo}</Text>
-            <Text style={styles.h2}>{autor}</Text>
-            <Text style={styles.descriptionText}>Descripción</Text>
-            <Text style={styles.descriptionText}>Año</Text>
-            <Pressable
-            onPress={leer}
-            style={styles.btn}>
-                <Text style={styles.btnText}>Leer</Text>
-            </Pressable>
-
-            {accion=='agregar'?
-                <Pressable
-                style={styles.btn}
-                onPress={agregar}>
-                    <Text style={styles.btnText}>Favorito (agregar)</Text>
-                </Pressable> 
-                :
-                <Pressable
-                style={styles.btn}
-                onPress={eliminar}>
-                    <Text style={styles.btnText}>Favorito (eliminar)</Text>
-                </Pressable> 
-            }
-            {/* <BottomTab/> */}
-        </View>
-    )
-}
-
-export default PaginaLibro
+export default PaginaLibro;

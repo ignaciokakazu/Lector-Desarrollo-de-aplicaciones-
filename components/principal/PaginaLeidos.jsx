@@ -6,17 +6,23 @@ import { useSelector } from 'react-redux'
 
 const PaginaLeidos = ({navigation}) => {
     const [libros, setLibros] = useState([])
+    const [favoritos, setFavoritos] = useState([])
+    const [styles, setStyles] = useState('')
+
+    //redux
     const leidos = useSelector((state)=>state.leidos.libros)
     const user = useSelector((state)=>state.user)
-    const [styles, setStyles] = useState('')
-    const theme = useSelector((state)=>state.user.theme)
+    const favoritosRedux = useSelector((state)=>state.favoritos.libros)
+    const theme = useSelector((state)=>state.user.theme) //para el useEffect de theme
+    // const favoritos = useSelector((state)=>state.favoritos.libros) //lo uso para el useEffect
 
     useEffect(()=>{
         setLibros(leidos)
+        setFavoritos(favoritosRedux)
         console.log('user según selector de paginaLeidos', user)
         console.log(theme)
         setStyles(ConditionalStyle(theme))
-    }, [theme])
+    }, [theme, favoritosRedux])
 
     return (
     <View style={styles.container}>

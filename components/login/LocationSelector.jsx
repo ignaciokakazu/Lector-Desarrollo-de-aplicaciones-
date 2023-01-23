@@ -20,7 +20,7 @@ export const LocationSelector = () => {
     
     return (
         <View>
-            <Button onPress={handleLocation} title='Activar location'></Button>
+            <Button onPress={handleLocation} title='Locación automática'></Button>
             <Text style={styles.texto}>Latitud {lat}</Text>
             <Text style={styles.texto}>Longitud {lon}</Text>
         </View>

@@ -6,7 +6,7 @@ export const stylesheetObj = (theme) => {
             flex:1,
             backgroundColor: theme.background,
             width: "100%",
-            // height: "100%",
+            height: "100%",
             justifyContent: 'center',
             alignItems: 'center',
             //fontFamily: 'Poppins-Thin'
@@ -19,14 +19,25 @@ export const stylesheetObj = (theme) => {
             alignItems: 'center',
             //fontFamily: 'Poppins-Thin'
         },
-        // container: (color = 'black') => ({
-        //     backgroundColor: color, //Colors[theme].background,
-        //     width: "100%",
-        //     // height: "100%",
-        //     justifyContent: 'center',
-        //     alignItems: 'center',
-        //     //fontFamily: 'Poppins-Thin'
-        // }),
+        containerMenu: {
+            // backgroundColor: theme.background,
+            // marginLeft: 20,
+            // maxWidth: '100%',
+            // alignItems: 'center',
+            // flex: 1,
+            // justifyContent: 'center',
+            // alignItems: 'center',
+            // // flexDirection: 'row'
+            // height: "100%",
+
+            backgroundColor: theme.background,
+            width: "100%",
+            // height: "100%",
+            justifyContent: 'center',
+            alignItems: 'center',
+            //fontFamily: 'Poppins-Thin'
+            //fontFamily: 'Poppins-Thin'
+        },
         bottomTab: {
             flex:1,
             backgroundColor: theme.background,
@@ -40,9 +51,12 @@ export const stylesheetObj = (theme) => {
             //fontFamily: 'Poppins-Thin'
         },
         menuBtn: {
-            width: 400,
-            height: 400,
-            backgroundColor: 'yellow'
+            width: 100,
+            height: 100,
+            marginTop: 40,
+            backgroundColor: theme.secondary,
+            justifyContent: 'center',
+            alignItems: 'center',
         },  
         input: {
             backgroundColor: theme.secondary,
@@ -63,6 +77,7 @@ export const stylesheetObj = (theme) => {
             width: 100,
             padding: 10,
             textAlign: 'center',
+            alignItems: 'center',
             marginTop: 10,
             marginRight: 20
         },
@@ -70,7 +85,7 @@ export const stylesheetObj = (theme) => {
             color: theme.text,
         },
         card: {
-            backgroundColor: theme.card,
+            backgroundColor: theme.secondary,
             shadowColor: theme.black,
             shadowOffset: {
                 width: 0,
@@ -125,6 +140,15 @@ export const stylesheetObj = (theme) => {
             fontSize: 15,
             //fontFamily: 'Poppins-Bold',
             marginTop: 10,
+        },
+        cuadro: {
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 300,
+            borderRadius: 5,
+            marginTop: 10,
+            marginBottom: 10,
+
         }
     })
 }

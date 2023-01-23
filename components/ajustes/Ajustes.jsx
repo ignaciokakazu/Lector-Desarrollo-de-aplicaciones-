@@ -15,7 +15,7 @@ const Ajustes = () => {
     }, [themeState])
 
     return(
-        <View style={styles.container}>
+        <View style={styles.containerLogin}>
             <Text style={styles.h2}>Usuario</Text>
             <Text style={styles.text}>{userState}</Text>
             <Text style={styles.h2}>Tema</Text>
