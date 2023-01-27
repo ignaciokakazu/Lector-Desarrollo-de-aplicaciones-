@@ -2,8 +2,9 @@ import {Text, Pressable, TextInput, View, Modal, FlatList} from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { Button } from 'react-native-web';
-import { styles } from '../styles/ConditionalStyle'
+import { ConditionalStyle, styles } from '../styles/ConditionalStyle'
 import { set_theme } from '../../store/actions/user.actions';
+import { useEffect } from 'react';
 
 const themesObj = [{
     id: 0,
@@ -17,9 +18,14 @@ const themesObj = [{
 }]
 
 export const ThemeSelect = ({themeDefault}) => {
+    const [styles, setStyles] = useState(themeDefault)
     const [modalVisible, setModalVisible] = useState(false)
     const [theme, setTheme] = useState(themeDefault);
     const dispatch = useDispatch()
+
+    useEffect(()=>{
+        setStyles(ConditionalStyle(themeDefault))
+    }, [theme])
 
     const ModalView = () => {
         setModalVisible(true)
@@ -27,16 +33,14 @@ export const ThemeSelect = ({themeDefault}) => {
 
     const handleTheme = (selected='Claro') => {
         //dispatch
-        setTheme(selected)
-        console.log('despacaha')
+        setStyles(selected)
         dispatch(set_theme(selected))
-        console.log('terminó de despachar')
         setModalVisible(false)        
     }
 
     return (
         <>
-        <View>
+        <View style={styles.containerLogin}>
             <Pressable
                 onPress={ModalView}
                 title={theme}

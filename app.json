@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "lector",
-    "slug": "lector",
+    "name": "lectorebook",
+    "slug": "lectorebook",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,10 +24,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.ignaciok.lectorebook"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "608acf1a-983b-4b92-a86c-b61cedcc238e"
+      }
     }
   }
 }
